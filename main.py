@@ -1,5 +1,5 @@
 import pygame
-from pygame.locals import *
+from pygame.locals import QUIT, KEYDOWN, KEYUP, K_SPACE, K_LSHIFT, K_RSHIFT
 from time import sleep
 from classes import Wkey, Bkey, HEIGHT, WIDTH, H_KB, W_KEY, H_BKEY, W_BKEY, WKEYS, BKEYS
 
