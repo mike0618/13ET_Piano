@@ -13,3 +13,5 @@ CONTROLS:
 + SPACE - SUSTAIN OFF/ON
 + Right SHIFT - SUSTAIN OFF permanently
 + Left SHIFT - SUSTAIN ON permanently
+
+Set variable HEIGHT in classes.py in order to change WINDOW SIZE
