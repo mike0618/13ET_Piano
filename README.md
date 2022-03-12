@@ -15,3 +15,5 @@ CONTROLS:
 + Left SHIFT - SUSTAIN ON permanently
 
 Set variable HEIGHT in classes.py in order to change WINDOW SIZE
+
+Use UP/DOWN arrows in order to set VOLUME

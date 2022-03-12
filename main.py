@@ -1,5 +1,5 @@
 import pygame
-from pygame.locals import QUIT, KEYDOWN, KEYUP, K_SPACE, K_LSHIFT, K_RSHIFT
+from pygame.locals import QUIT, KEYDOWN, KEYUP, K_SPACE, K_LSHIFT, K_RSHIFT, K_DOWN, K_UP
 from time import sleep
 from classes import Wkey, Bkey, HEIGHT, WIDTH, H_KB, W_KEY, H_BKEY, W_BKEY, WKEYS, BKEYS
 
@@ -10,7 +10,10 @@ screen.fill((36, 36, 36))
 myfont = pygame.font.SysFont('arial', HEIGHT // 26)
 notes = [pygame.mixer.Sound(f'notes/{i}-1.ogg') for i in range(14)] + \
         [pygame.mixer.Sound(f'notes/{i}.ogg') for i in range(14)]
-[note.set_volume(0.4) for note in notes]
+volume = 4
+def set_volume(vol):
+    [note.set_volume(vol / 10) for note in notes]
+set_volume(volume)
 # SET PIANO
 keys_dict = {}
 i = 0
@@ -82,6 +85,13 @@ while True:
             break
 
         if event.type == KEYDOWN:
+            if event.key == K_DOWN and volume:
+                volume -= 1
+                set_volume(volume)
+            if event.key == K_UP and volume < 10:
+                volume += 1
+                set_volume(volume)
+                print(volume)
             if event.key == K_SPACE or event.key == K_RSHIFT:
                 sustain = False
             if event.key == K_LSHIFT:
