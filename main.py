@@ -69,6 +69,8 @@ while True:
     sleep(0.01)
     for event in pygame.event.get():
         btn = event.__dict__.get('unicode')
+        if btn:
+            btn = btn.lower()
         if event.type == QUIT:
             pygame.quit()
             break
