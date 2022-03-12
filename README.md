@@ -13,7 +13,6 @@ CONTROLS:
 + SPACE - SUSTAIN OFF/ON
 + Right SHIFT - SUSTAIN OFF permanently
 + Left SHIFT - SUSTAIN ON permanently
++ Use UP/DOWN arrows in order to set VOLUME
 
-Set variable HEIGHT in classes.py in order to change WINDOW SIZE
-
-Use UP/DOWN arrows in order to set VOLUME
+Set the variable HEIGHT in classes.py in order to change WINDOW SIZE
