@@ -14,6 +14,12 @@ notes = [pygame.mixer.Sound(f'notes/{i}-1.ogg') for i in range(14)] + \
 # SET PIANO
 keys_dict = {}
 i = 0
+y2 = H_KB + 2
+yl1 = H_KB - W_KEY * 0.382
+yl2 = H_KB + yl1
+ylb1 = H_BKEY - W_KEY * 0.382
+ylb2 = H_KB + ylb1
+hb = W_BKEY // 2
 for n, ltr in enumerate(WKEYS):
     if n in (1, 2, 4, 6, 7, 10, 11, 13, 15, 16):
         i += 1
@@ -24,10 +30,10 @@ for n, ltr in enumerate(WKEYS):
     i += 1
     if n < 9:
         k.pos = (n * W_KEY + 2, 2)
-        k.lpos = ((n + 0.382) * W_KEY, H_KB - W_KEY * 0.382)
+        k.lpos = ((n + 0.382) * W_KEY, yl1)
     else:
-        k.pos = ((n - 9) * W_KEY + 2, H_KB + 2)
-        k.lpos = ((n - 9 + 0.382) * W_KEY, 2 * H_KB - W_KEY * 0.382)
+        k.pos = ((n - 9) * W_KEY + 2, y2)
+        k.lpos = ((n - 9 + 0.382) * W_KEY, yl2)
 i = m = 1
 for n, ltr in enumerate(BKEYS):
     if n in (2, 3, 7, 8):
@@ -41,11 +47,11 @@ for n, ltr in enumerate(BKEYS):
     keys_dict[ltr] = k
     i += 2
     if n < 5:
-        k.pos = (m * W_KEY - W_BKEY // 2, 2)
-        k.lpos = ((m + 0.236) * W_KEY - W_BKEY // 2, H_BKEY - W_KEY * 0.382)
+        k.pos = (m * W_KEY - hb, 2)
+        k.lpos = ((m + 0.236) * W_KEY - hb, ylb1)
     else:
-        k.pos = (W_KEY - W_BKEY // 2 + (m - 8) * W_KEY, H_KB + 2)
-        k.lpos = (W_KEY - W_BKEY // 2 + (m - 8 + 0.236) * W_KEY, H_BKEY + H_KB - W_KEY * 0.382)
+        k.pos = ((m - 7) * W_KEY - hb, y2)
+        k.lpos = ((m - 6.764) * W_KEY - hb, ylb2)
     m += 1
 
 
