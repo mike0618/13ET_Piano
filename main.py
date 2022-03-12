@@ -8,9 +8,9 @@ pygame.display.set_caption("13ET Piano")
 screen = pygame.display.set_mode((WIDTH, HEIGHT), 0, 32)
 screen.fill((36, 36, 36))
 myfont = pygame.font.SysFont('arial', HEIGHT // 26)
-notes = [pygame.mixer.Sound(f'notes/{i}-1.wav') for i in range(14)] + \
-        [pygame.mixer.Sound(f'notes/{i}.wav') for i in range(14)]
-[note.set_volume(0.1) for note in notes]
+notes = [pygame.mixer.Sound(f'notes/{i}-1.ogg') for i in range(14)] + \
+        [pygame.mixer.Sound(f'notes/{i}.ogg') for i in range(14)]
+[note.set_volume(0.4) for note in notes]
 # SET PIANO
 keys_dict = {}
 i = 0

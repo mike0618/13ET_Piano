@@ -1,4 +1,5 @@
 import pygame
+from random import randint
 
 HEIGHT = 600
 WIDTH = HEIGHT * 1.618
@@ -31,6 +32,7 @@ class Bkey(pygame.sprite.Sprite):
             self.note.stop()
 
     def key_down(self):
+        pygame.mixer.Channel(randint(0,7)).play(self.note)
         self.note.play()
         self.played = True
         self.surf.fill(self.down_color)
