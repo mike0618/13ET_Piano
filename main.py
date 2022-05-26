@@ -1,5 +1,5 @@
 import pygame
-from pygame.locals import QUIT, KEYDOWN, KEYUP, K_SPACE, K_LSHIFT, K_RSHIFT, K_DOWN, K_UP
+from pygame.locals import QUIT, KEYDOWN, KEYUP, K_SPACE, K_LSHIFT, K_DOWN, K_UP
 from time import sleep
 from classes import Wkey, Bkey, HEIGHT, WIDTH, H_KB, W_KEY, H_BKEY, W_BKEY, WKEYS, BKEYS
 
@@ -9,6 +9,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT), 0, 32)
 screen.fill((36, 36, 36))
 font_size = HEIGHT // 26
 myfont = pygame.font.SysFont('arial', font_size)
+myfont2 = pygame.font.SysFont('mono', font_size, True)
 notes = [pygame.mixer.Sound(f'notes/{i}-1.ogg') for i in range(14)] + \
         [pygame.mixer.Sound(f'notes/{i}.ogg') for i in range(14)]
 volume = 4
@@ -64,20 +65,23 @@ for n, ltr in enumerate(BKEYS):
 
 
 # DRAW PIANO
-def draw_piano():
+def draw_piano(s = False):
     for key in keys_dict.values():
         screen.blit(key.surf, key.pos)
         key.rect = key.surf.get_rect(topleft=key.pos)
         screen.blit(key.letter, key.lpos)
-    screen.blit(myfont.render(f'{volume}', True, (0, 0, 0)), (WIDTH - hb, hb // 2))
+    screen.blit(myfont2.render(f'{volume}', True, (0, 0, 0)), (WIDTH - hb, hb // 2))
+    if s:
+        screen.blit(myfont2.render('S', True, (0, 0, 0)), (WIDTH - hb, hb * 1.2))
     pygame.display.flip()
 
 
 w_keys = [key for key in keys_dict.values() if type(key).__name__ == 'Wkey']
 b_keys = [key for key in keys_dict.values() if type(key).__name__ == 'Bkey']
 
-draw_piano()
-sustain = white = True
+sustain = False
+draw_piano(sustain)
+white = True
 pygame.init()
 while True:
     sleep(0.01)
@@ -93,26 +97,29 @@ while True:
             if event.key == K_DOWN and volume:
                 volume -= 1
                 set_volume(volume)
-                draw_piano()
+                draw_piano(sustain)
             if event.key == K_UP and volume < 10:
                 volume += 1
                 set_volume(volume)
-                draw_piano()
-            if event.key == K_SPACE or event.key == K_RSHIFT:
-                sustain = False
-            if event.key == K_LSHIFT:
+                draw_piano(sustain)
+            if event.key == K_SPACE:
                 sustain = True
+                draw_piano(sustain)
+            if event.key == K_LSHIFT:
+                sustain = not sustain
+                draw_piano(sustain)
             key = keys_dict.get(btn)
             if key:
                 key.key_down()
-                draw_piano()
+                draw_piano(sustain)
         if event.type == KEYUP:
             if event.key == K_SPACE:
-                sustain = True
+                sustain = False
+                draw_piano(sustain)
             key = keys_dict.get(btn)
             if key:
                 key.key_up(sustain)
-                draw_piano()
+                draw_piano(sustain)
 
         if pygame.mouse.get_pressed()[0]:
             for key in b_keys:
@@ -121,27 +128,27 @@ while True:
                     key.key_down()
                     for k in w_keys:
                         k.key_up(sustain)
-                    draw_piano()
+                    draw_piano(sustain)
                     break
                 if not key.rect.collidepoint(pygame.mouse.get_pos()) and key.played:
                     white = True
                     key.key_up(sustain)
-                    draw_piano()
+                    draw_piano(sustain)
                     break
 
             if white:
                 for key in w_keys:
                     if key.rect.collidepoint(pygame.mouse.get_pos()) and not key.played:
                         key.key_down()
-                        draw_piano()
+                        draw_piano(sustain)
                         break
                     if not key.rect.collidepoint(pygame.mouse.get_pos()) and key.played:
                         key.key_up(sustain)
-                        draw_piano()
+                        draw_piano(sustain)
                         break
 
         if event.type == pygame.MOUSEBUTTONUP:
             white = True
             for key in keys_dict.values().__reversed__():
                 key.key_up(sustain)
-                draw_piano()
+                draw_piano(sustain)

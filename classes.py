@@ -23,7 +23,7 @@ class Bkey(pygame.sprite.Sprite):
         self.pos = None
         self.lpos = None
         self.played = False
-        self.sustain = True
+        self.sustain = False
 
     def key_up(self, sustain):
         self.played = False
