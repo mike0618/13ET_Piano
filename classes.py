@@ -1,5 +1,4 @@
 import pygame
-from random import randint
 
 HEIGHT = 600
 WIDTH = HEIGHT * 1.618
@@ -9,6 +8,7 @@ H_BKEY = H_KB // 1.618
 W_BKEY = W_KEY // 1.618
 WKEYS = 'qwertyuiozxcvbnm,.'
 BKEYS = '23578sdgjk'
+ch = 0
 
 
 class Bkey(pygame.sprite.Sprite):
@@ -32,7 +32,11 @@ class Bkey(pygame.sprite.Sprite):
             self.note.stop()
 
     def key_down(self):
-        pygame.mixer.Channel(randint(0, 7)).play(self.note)
+        global ch
+        pygame.mixer.Channel(ch).play(self.note)
+        ch += 1
+        if ch == 8:
+            ch = 0
         self.played = True
         self.surf.fill(self.down_color)
 
@@ -40,7 +44,7 @@ class Bkey(pygame.sprite.Sprite):
 class Wkey(Bkey):
     def __init__(self):
         super(Wkey, self).__init__()
-        self.surf = pygame.Surface((W_KEY - 4, H_KB - 4))
+        self.surf = pygame.Surface((W_KEY - 2, H_KB - 2))
         self.up_color = (157, 157, 157)
         self.down_color = (255, 255, 255)
         self.surf.fill(self.up_color)
