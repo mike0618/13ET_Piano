@@ -1,4 +1,4 @@
-This is a 13 Tone Equal Temperament Piano written in Python
+These are 13 and 17 Tone Equal Temperament Pianos written in Python
 -
 FIRST TIME RUN:
 ```
